@@ -6,8 +6,15 @@ on:
       - main
 
 jobs:
+  start:
+    runs-on: self-hosted
+    steps:
+      - name: Echo build started
+        run: echo "🚀 Build started..."
+
   build:
     runs-on: self-hosted
+    needs: start
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
