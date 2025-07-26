@@ -1,25 +1,29 @@
-name: CI - NestJS Docker Build
+name: Build and Deploy (Self-Hosted)
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - master
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  build-deploy:
+    runs-on: self-hosted
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      - name: Set up Docker
-        uses: docker/setup-buildx-action@v3
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
 
-      - name: Build Docker image
-        run: docker build -t nest-crud-app .
+    - name: Build Docker image
+      run: docker build -t nest-crud-app .
 
-      - name: Run app container (test)
-        run: docker run -d -p 3000:3000 nest-crud-app && sleep 10
+    - name: Stop existing container (ignore errors)
+      run: docker stop nest-crud-app || exit 0
 
-      - name: Check if server is running
-        run: curl --fail http://localhost:3000 || (echo "❌ App failed to start" && exit 1)
+    - name: Remove existing container (ignore errors)
+      run: docker rm nest-crud-app || exit 0
+
+    - name: Run Docker container
+      run: docker run -d -p 7036:3000 --name nest-crud-app nest-crud-app
