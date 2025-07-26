@@ -28,7 +28,7 @@
 ## Project setup
 
 ```bash
-$ npm install hii
+$ npm install hiiss
 ```
 
 ## Compile and run the project
