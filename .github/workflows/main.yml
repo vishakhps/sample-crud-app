@@ -2,7 +2,7 @@ name: CI - NestJS Docker Build
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   build:
