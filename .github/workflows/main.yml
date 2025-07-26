@@ -6,6 +6,13 @@ on:
       - main
 
 jobs:
+  test:
+    runs-on: self-hosted
+    steps:
+    - name: echo a message
+      run: echo "hello"
+      
+
   build-deploy:
     runs-on: self-hosted
 
