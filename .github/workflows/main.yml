@@ -20,13 +20,11 @@ jobs:
       run: |
         docker stop nest-crud-app
       continue-on-error: true
-      shell: pwsh
 
     - name: Remove existing container (ignore errors)
       run: |
         docker rm nest-crud-app
       continue-on-error: true
-      shell: pwsh
 
     - name: Build Docker image
       run: docker build -t nest-crud-app .
